@@ -6,11 +6,11 @@
 		}
 	},
 	"api": {
-		"testamplifygraphql": {
+		"testamplify": {
 			"service": "AppSync",
 			"providerPlugin": "awscloudformation",
 			"output": {
-				"securityType": "AMAZON_COGNITO_USER_POOLS"
+				"securityType": "API_KEY"
 			}
 		}
 	},
@@ -18,6 +18,14 @@
 		"S3AndCloudFront": {
 			"service": "S3AndCloudFront",
 			"providerPlugin": "awscloudformation"
+		}
+	},
+	"function": {
+		"appVersionFn": {
+			"service": "Lambda",
+			"providerPlugin": "awscloudformation",
+			"build": true,
+			"dependsOn": []
 		}
 	}
 }
