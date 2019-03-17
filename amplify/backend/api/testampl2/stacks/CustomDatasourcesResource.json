@@ -246,25 +246,6 @@
     "EmptyOutput": {
       "Description": "An empty output. You may delete this if you have at least one resource above.",
       "Value": ""
-    },
-    "CustomTodoDataSourceNameOutput": {
-      "Description": "Custom Todo DS Name.",
-      "Value": {
-        "Fn::GetAtt": ["CustomTodoDataSource", "Name"]
-      },
-      "Export": {
-        "Name": {
-          "Fn::Join": [
-            ":",
-            [
-              {
-                "Ref": "AWS::StackName"
-              },
-              "CustomTodoDataSourceName"
-            ]
-          ]
-        }
-      }
     }
   }
 }
