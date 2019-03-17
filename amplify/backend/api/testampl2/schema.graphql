@@ -1,0 +1,9 @@
+type Todo @model {
+  id: ID!
+  name: String!
+  description: String
+}
+
+type Query{
+  appVersion: String,
+}

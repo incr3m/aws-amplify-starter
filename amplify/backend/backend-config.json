@@ -6,7 +6,7 @@
 		}
 	},
 	"api": {
-		"testamplify": {
+		"testampl2": {
 			"service": "AppSync",
 			"providerPlugin": "awscloudformation",
 			"output": {

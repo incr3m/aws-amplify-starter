@@ -1,0 +1,270 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "An auto-generated nested stack.",
+  "Metadata": {},
+  "Parameters": {
+    "AppSyncApiId": {
+      "Type": "String",
+      "Description": "The id of the AppSync API associated with this project."
+    },
+    "AppSyncApiName": {
+      "Type": "String",
+      "Description": "The name of the AppSync API",
+      "Default": "AppSyncSimpleTransform"
+    },
+    "env": {
+      "Type": "String",
+      "Description": "The environment name. e.g. Dev, Test, or Production",
+      "Default": "NONE"
+    },
+    "S3DeploymentBucket": {
+      "Type": "String",
+      "Description": "The S3 bucket containing all deployment assets for the project."
+    },
+    "S3DeploymentRootKey": {
+      "Type": "String",
+      "Description": "An S3 key relative to the S3DeploymentBucket that points to the root\nof the deployment directory."
+    }
+  },
+  "Resources": {
+    "CustomTablesIAMRole": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "RoleName": {
+          "Fn::If": [
+            "HasEnvironmentParameter",
+            {
+              "Fn::Join": [
+                "-",
+                [
+                  "CustomTables",
+                  "role",
+                  {
+                    "Ref": "AppSyncApiId"
+                  },
+                  {
+                    "Ref": "env"
+                  }
+                ]
+              ]
+            },
+            {
+              "Fn::Join": [
+                "-",
+                [
+                  "CustomTables",
+                  "role",
+                  {
+                    "Ref": "AppSyncApiId"
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "appsync.amazonaws.com"
+              },
+              "Action": "sts:AssumeRole"
+            }
+          ]
+        },
+        "Policies": [
+          {
+            "PolicyName": "DynamoDBAccess",
+            "PolicyDocument": {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "dynamodb:BatchGetItem",
+                    "dynamodb:BatchWriteItem",
+                    "dynamodb:PutItem",
+                    "dynamodb:DeleteItem",
+                    "dynamodb:GetItem",
+                    "dynamodb:Scan",
+                    "dynamodb:Query",
+                    "dynamodb:UpdateItem"
+                  ],
+                  "Resource": [
+                    {
+                      "Fn::Sub": [
+                        "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${tablename}",
+                        {
+                          "tablename": {
+                            "Fn::If": [
+                              "HasEnvironmentParameter",
+                              {
+                                "Fn::Join": [
+                                  "-",
+                                  [
+                                    "Todo",
+                                    {
+                                      "Ref": "AppSyncApiId"
+                                    },
+                                    {
+                                      "Ref": "env"
+                                    }
+                                  ]
+                                ]
+                              },
+                              {
+                                "Fn::Join": [
+                                  "-",
+                                  [
+                                    "Todo",
+                                    {
+                                      "Ref": "AppSyncApiId"
+                                    }
+                                  ]
+                                ]
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "Fn::Sub": [
+                        "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${tablename}/*",
+                        {
+                          "tablename": {
+                            "Fn::If": [
+                              "HasEnvironmentParameter",
+                              {
+                                "Fn::Join": [
+                                  "-",
+                                  [
+                                    "Todo",
+                                    {
+                                      "Ref": "AppSyncApiId"
+                                    },
+                                    {
+                                      "Ref": "env"
+                                    }
+                                  ]
+                                ]
+                              },
+                              {
+                                "Fn::Join": [
+                                  "-",
+                                  [
+                                    "Todo",
+                                    {
+                                      "Ref": "AppSyncApiId"
+                                    }
+                                  ]
+                                ]
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "CustomTodoDataSource": {
+      "Type": "AWS::AppSync::DataSource",
+      "Properties": {
+        "ApiId": {
+          "Ref": "AppSyncApiId"
+        },
+        "Name": "CustomTodoTable",
+        "Type": "AMAZON_DYNAMODB",
+        "ServiceRoleArn": {
+          "Fn::GetAtt": ["CustomTablesIAMRole", "Arn"]
+        },
+        "DynamoDBConfig": {
+          "AwsRegion": {
+            "Ref": "AWS::Region"
+          },
+          "TableName": {
+            "Fn::If": [
+              "HasEnvironmentParameter",
+              {
+                "Fn::Join": [
+                  "-",
+                  [
+                    "Todo",
+                    {
+                      "Ref": "AppSyncApiId"
+                    },
+                    {
+                      "Ref": "env"
+                    }
+                  ]
+                ]
+              },
+              {
+                "Fn::Join": [
+                  "-",
+                  [
+                    "Todo",
+                    {
+                      "Ref": "AppSyncApiId"
+                    }
+                  ]
+                ]
+              }
+            ]
+          }
+        }
+      },
+      "DependsOn": ["CustomTablesIAMRole"]
+    }
+  },
+  "Conditions": {
+    "HasEnvironmentParameter": {
+      "Fn::Not": [
+        {
+          "Fn::Equals": [
+            {
+              "Ref": "env"
+            },
+            "NONE"
+          ]
+        }
+      ]
+    },
+    "AlwaysFalse": {
+      "Fn::Equals": ["true", "false"]
+    }
+  },
+  "Outputs": {
+    "EmptyOutput": {
+      "Description": "An empty output. You may delete this if you have at least one resource above.",
+      "Value": ""
+    },
+    "CustomTodoDataSourceNameOutput": {
+      "Description": "Custom Todo DS Name.",
+      "Value": {
+        "Fn::GetAtt": ["CustomTodoDataSource", "Name"]
+      },
+      "Export": {
+        "Name": {
+          "Fn::Join": [
+            ":",
+            [
+              {
+                "Ref": "AWS::StackName"
+              },
+              "CustomTodoDataSourceName"
+            ]
+          ]
+        }
+      }
+    }
+  }
+}

@@ -142,7 +142,8 @@
             "Functions": [
               {
                 "Fn::GetAtt": ["AppVersionQueryFunction", "FunctionId"]
-              }
+              },
+              "u25kcdo3qrfvfpoik7p3norcgi"
             ]
           },
           "TypeName": "Query",

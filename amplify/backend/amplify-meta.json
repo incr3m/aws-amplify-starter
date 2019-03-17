@@ -29,7 +29,7 @@
 				"IdentityPoolName": "cognito32f30946_identitypool_32f30946__dev",
 				"UserPoolName": "cognito32f30946_userpool_32f30946"
 			},
-			"lastPushTimeStamp": "2019-03-17T02:33:46.026Z",
+			"lastPushTimeStamp": "2019-03-17T10:48:56.285Z",
 			"providerMetadata": {
 				"s3TemplateURL": "https://s3.amazonaws.com/test-amplify-20190306070526-deployment/amplify-cfn-templates/auth/cognito32f30946-cloudformation-template.yml",
 				"logicalId": "authcognito32f30946"
@@ -38,21 +38,21 @@
 		}
 	},
 	"api": {
-		"testamplify": {
+		"testampl2": {
 			"service": "AppSync",
 			"providerPlugin": "awscloudformation",
 			"output": {
 				"securityType": "API_KEY",
-				"GraphQLAPIIdOutput": "3ojwjm732rdija4hdlzbsmoa3m",
-				"GraphQLAPIEndpointOutput": "https://3udtow5vnjarzg4ugacnbt52ae.appsync-api.us-east-1.amazonaws.com/graphql",
-				"GraphQLAPIKeyOutput": "da2-hl5qryr4mjdpxkxgkvvkhhk5c4"
+				"GraphQLAPIIdOutput": "dkl7n7dzujgnpivlcpfgsg6jpy",
+				"GraphQLAPIEndpointOutput": "https://ftoi4dubavbwtiviy4q3naskzm.appsync-api.us-east-1.amazonaws.com/graphql",
+				"GraphQLAPIKeyOutput": "da2-b3fdw4q5ujfwdougs7g6pxjqpq"
 			},
 			"providerMetadata": {
 				"s3TemplateURL": "https://s3.amazonaws.com/test-amplify-20190306070526-deployment/amplify-cfn-templates/api/cloudformation-template.json",
-				"logicalId": "apitestamplify"
+				"logicalId": "apitestampl2"
 			},
-			"lastPushTimeStamp": "2019-03-17T02:33:46.028Z",
-			"lastPushDirHash": "ofWe8C1a4EggpQp68NFipsDDtgA="
+			"lastPushTimeStamp": "2019-03-17T10:48:59.095Z",
+			"lastPushDirHash": "fKGpZaExXG+XiL3mKPDEMCAnhU4="
 		}
 	},
 	"hosting": {
@@ -65,7 +65,7 @@
 				"Region": "us-east-1",
 				"HostingBucketName": "test-amplify-20190306071955-hostingbucket-dev"
 			},
-			"lastPushTimeStamp": "2019-03-17T02:33:46.030Z",
+			"lastPushTimeStamp": "2019-03-17T10:48:56.288Z",
 			"providerMetadata": {
 				"s3TemplateURL": "https://s3.amazonaws.com/test-amplify-20190306070526-deployment/amplify-cfn-templates/hosting/template.json",
 				"logicalId": "hostingS3AndCloudFront"
@@ -86,7 +86,7 @@
 				"s3TemplateURL": "https://s3.amazonaws.com/test-amplify-20190306070526-deployment/amplify-cfn-templates/function/appVersionFn-cloudformation-template.json",
 				"logicalId": "functionappVersionFn"
 			},
-			"lastPushTimeStamp": "2019-03-17T02:33:46.034Z",
+			"lastPushTimeStamp": "2019-03-17T10:48:56.290Z",
 			"output": {
 				"Region": "us-east-1",
 				"Arn": "arn:aws:lambda:us-east-1:797427555984:function:appVersionFn-dev",
